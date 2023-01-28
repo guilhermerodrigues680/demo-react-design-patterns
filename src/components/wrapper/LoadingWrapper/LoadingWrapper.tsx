@@ -2,7 +2,7 @@ import { type ReactNode, useState, useEffect } from "react";
 
 // https://medium.com/@jrwebdev/react-higher-order-component-patterns-in-typescript-42278f7590fb
 
-export type WithLoaderProps<T> = {
+export type LoadingWrapperProps<T> = {
   fetchFunction: () => Promise<T>;
   children: (fd: T) => ReactNode;
 };
@@ -12,7 +12,10 @@ export type WithLoaderProps<T> = {
  * um componente filho assim que os dados forem obtidos e ele renderiza um
  * carregador enquanto os dados são obtidos.
  */
-export function WithLoader<T>({ children, fetchFunction }: WithLoaderProps<T>) {
+export function LoadingWrapper<T>({
+  children,
+  fetchFunction,
+}: LoadingWrapperProps<T>) {
   const [loading, setLoading] = useState(true);
   const [d, setD] = useState<T>();
 

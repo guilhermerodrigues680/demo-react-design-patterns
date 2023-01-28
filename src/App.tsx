@@ -1,8 +1,8 @@
 import { useContext } from "react";
-import WithLoader from "./components/hoc/WithLoader";
 import { withLoader } from "./components/hoc/WithLoader/with-loader";
 import { PetsContainer, PetsRender } from "./components/PetsContainer";
 import ThemeSwitcher from "./components/provide/ThemeSwitcher";
+import LoadingWrapper from "./components/wrapper/LoadingWrapper";
 import { ThemeContext } from "./context/theme-context";
 import dogsApi from "./services/dogs-api";
 
@@ -30,13 +30,13 @@ function App() {
       <PetsContainer />
 
       <h3>WithLoader</h3>
-      <WithLoader fetchFunction={getDogs}>
+      <LoadingWrapper fetchFunction={getDogs}>
         {(fd) => (
           <>
             asas <PetsRender fetchedData={fd} />
           </>
         )}
-      </WithLoader>
+      </LoadingWrapper>
 
       <h3>DogsRenderWithLoader</h3>
       <DogsRenderWithLoader />
