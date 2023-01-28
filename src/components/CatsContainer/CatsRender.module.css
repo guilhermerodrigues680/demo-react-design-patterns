@@ -1,0 +1,13 @@
+.cat {
+  display: grid;
+  gap: 100px;
+  grid-template-columns: repeat(2, 1fr);
+  justify-items: center;
+  align-items: center;
+}
+
+.cat img {
+  width: 350px;
+  aspect-ratio: 16/9;
+  border-radius: 8px;
+}
