@@ -1,52 +1,25 @@
 import { useEffect, useState } from "react";
 
-// First we need to add a type to let us extend the incoming component.
-type ExtraInfoType<T> = {
+// https://react-typescript-cheatsheet.netlify.app/docs/hoc/excluding_props/
+
+/**
+ * O componente de entrada deve extender esse tipo.
+ * Se não for possivel, basta criar um Wrapper
+ */
+export type WithLoaderType<T> = {
   fetchedData: T;
 };
 
-// Mark the function as a generic using P (or whatever variable you want)
-export function withLoader0<P, T>(
-  WrappedComponent: React.ComponentType<P & ExtraInfoType<T>>,
-  fetchFunction: () => Promise<T>
-) {
-  const [loading, setLoading] = useState(true);
-  const [d, setD] = useState<T>();
-
-  async function loaddddd() {
-    try {
-      setLoading(true);
-      const d = await fetchFunction();
-      setD(d);
-    } catch (error) {
-      // TODO
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  useEffect(() => {
-    loaddddd();
-  }, []);
-
-  // At this point, the props being passed in are the original props the component expects.
-  const ComponentWithExtraInfo = (props: P) => (
-    <>
-      {loading ? (
-        <div className="loader">"loading..."</div>
-      ) : (
-        d && <WrappedComponent {...props} fetchedData={d} />
-      )}
-      ;
-    </>
-  );
-
-  return ComponentWithExtraInfo;
-}
-
-// https://react-typescript-cheatsheet.netlify.app/docs/hoc/excluding_props/
+/**
+ * withLoader é uma HOF (Função de ordem superior) que recebe uma função para buscar dados
+ * e retorna um HOC (componente de ordem superior) que busca dados usando a função de busca fornecida
+ * e renderiza um carregador enquanto os dados estão sendo buscados.
+ * @template TF O tipo dos dados buscados
+ * @param fetchFunction função para buscar dados
+ * @returns HOC (componente de ordem superior)
+ */
 export function withLoader<TF>(fetchFunction: () => Promise<TF>) {
-  return function <T extends ExtraInfoType<TF>>(
+  return function <T extends WithLoaderType<TF>>(
     Component: React.ComponentType<T>
   ) {
     return function (props: Omit<T, "fetchedData">): JSX.Element {

@@ -1,20 +1,18 @@
-import React, {
-  type ReactNode,
-  useState,
-  ReactElement,
-  useEffect,
-} from "react";
-
-export type WithLoaderProps<P, T> = {
-  fetchFunction: () => Promise<T>;
-  children: (fd: T) => ReactElement;
-};
+import { type ReactNode, useState, useEffect } from "react";
 
 // https://medium.com/@jrwebdev/react-higher-order-component-patterns-in-typescript-42278f7590fb
-export function WithLoader<P, T>({
-  children,
-  fetchFunction,
-}: WithLoaderProps<P, T>) {
+
+export type WithLoaderProps<T> = {
+  fetchFunction: () => Promise<T>;
+  children: (fd: T) => ReactNode;
+};
+
+/**
+ * É um componente que recebe uma função para buscar dados e uma função para gerar
+ * um componente filho assim que os dados forem obtidos e ele renderiza um
+ * carregador enquanto os dados são obtidos.
+ */
+export function WithLoader<T>({ children, fetchFunction }: WithLoaderProps<T>) {
   const [loading, setLoading] = useState(true);
   const [d, setD] = useState<T>();
 
