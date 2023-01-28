@@ -1,4 +1,4 @@
-import type { PetImage } from "./pet-image.type";
+import type { PetImage } from "../../models/pet-image.type";
 import styles from "./PetsRender.module.css";
 
 export type PetsRenderProps = {

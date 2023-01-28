@@ -1,22 +1,15 @@
 import { useContext } from "react";
-import "./App.css";
-import { PetsContainer, PetsRender } from "./components/PetsContainer";
-import { PetImage } from "./components/PetsContainer/pet-image.type";
 import WithLoader from "./components/hoc/WithLoader";
 import { withLoader } from "./components/hoc/WithLoader/with-loader";
+import { PetsContainer, PetsRender } from "./components/PetsContainer";
 import ThemeSwitcher from "./components/provide/ThemeSwitcher";
 import { ThemeContext } from "./context/theme-context";
+import dogsApi from "./services/dogs-api";
 
-async function fetchDogs(): Promise<PetImage[]> {
-  const dogApiBaseUrl = "https://api.thedogapi.com/v1";
-  const dogApiImagesUrl = `${dogApiBaseUrl}/images/search?limit=10`;
+import "./App.css";
 
-  // OBS: fetch simples sem tratamento de erro.
-  const dogImgs: PetImage[] = await (await fetch(dogApiImagesUrl)).json();
-  return dogImgs;
-}
-
-const DogsRenderWithLoader = withLoader(fetchDogs)(PetsRender);
+// TODO: () => dogsApi.getPets() pois existe problema com o this
+const DogsRenderWithLoader = withLoader(() => dogsApi.getPets())(PetsRender);
 
 function App() {
   const { theme, colorScheme } = useContext(ThemeContext);
@@ -34,10 +27,10 @@ function App() {
       <PetsContainer />
 
       <h3>WithLoader</h3>
-      <WithLoader fetchFunction={fetchDogs}>
+      <WithLoader fetchFunction={() => dogsApi.getPets()}>
         {(fd) => (
           <>
-            asas {/*console.debug(fd)*/} <PetsRender fetchedData={fd} />
+            asas <PetsRender fetchedData={fd} />
           </>
         )}
       </WithLoader>

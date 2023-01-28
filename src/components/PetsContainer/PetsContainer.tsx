@@ -1,17 +1,13 @@
 import { useEffect, useState } from "react";
-import type { PetImage } from "./pet-image.type";
+import { type PetImage } from "../../models/pet-image.type";
+import catsApi from "../../services/cats-api";
 import { PetsRender } from "./PetsRender";
 
 export function PetsContainer() {
-  // https://developers.thecatapi.com/view-account/ylX4blBYT9FaoVd6OhvR?report=bOoHBz-8t
-  const catApiBaseUrl = "https://api.thecatapi.com/v1";
-  const catApiImagesUrl = `${catApiBaseUrl}/images/search?limit=10`;
-
   const [fetchedPets, setFetchedPets] = useState<PetImage[]>([]);
 
   async function fetchPets() {
-    // OBS: fetch simples sem tratamento de erro.
-    const petImgs: PetImage[] = await (await fetch(catApiImagesUrl)).json();
+    const petImgs: PetImage[] = await catsApi.getPets();
     setFetchedPets(petImgs);
   }
 
