@@ -8,8 +8,11 @@ import dogsApi from "./services/dogs-api";
 
 import "./App.css";
 
-// TODO: () => dogsApi.getPets() pois existe problema com o this
-const DogsRenderWithLoader = withLoader(() => dogsApi.getPets())(PetsRender);
+// usar métodos de uma classe como propriedade pode ocorrer erros com o this,
+// assim é necessário fazer com que o this seja referido corretamente.
+const getDogs = dogsApi.getPets.bind(dogsApi); // ou: () => dogsApi.getPets();
+
+const DogsRenderWithLoader = withLoader(getDogs)(PetsRender);
 
 function App() {
   const { theme, colorScheme } = useContext(ThemeContext);
@@ -27,7 +30,7 @@ function App() {
       <PetsContainer />
 
       <h3>WithLoader</h3>
-      <WithLoader fetchFunction={() => dogsApi.getPets()}>
+      <WithLoader fetchFunction={getDogs}>
         {(fd) => (
           <>
             asas <PetsRender fetchedData={fd} />
