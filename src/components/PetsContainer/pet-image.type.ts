@@ -1,4 +1,4 @@
-export type CatImage = {
+export type PetImage = {
   id: string;
   url: string;
   width: number;

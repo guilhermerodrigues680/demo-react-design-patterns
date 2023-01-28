@@ -1,22 +1,22 @@
 import { useContext } from "react";
 import "./App.css";
-import { CatsContainer, CatsRender } from "./components/CatsContainer";
-import { CatImage } from "./components/CatsContainer/cat-image.type";
+import { PetsContainer, PetsRender } from "./components/PetsContainer";
+import { PetImage } from "./components/PetsContainer/pet-image.type";
 import WithLoader from "./components/hoc/WithLoader";
 import { withLoader } from "./components/hoc/WithLoader/with-loader";
 import ThemeSwitcher from "./components/provide/ThemeSwitcher";
 import { ThemeContext } from "./context/theme-context";
 
-async function fetchDogs(): Promise<CatImage[]> {
+async function fetchDogs(): Promise<PetImage[]> {
   const dogApiBaseUrl = "https://api.thedogapi.com/v1";
   const dogApiImagesUrl = `${dogApiBaseUrl}/images/search?limit=10`;
 
   // OBS: fetch simples sem tratamento de erro.
-  const dogImgs: CatImage[] = await (await fetch(dogApiImagesUrl)).json();
+  const dogImgs: PetImage[] = await (await fetch(dogApiImagesUrl)).json();
   return dogImgs;
 }
 
-const CatsRenderWithLoader = withLoader(fetchDogs)(CatsRender);
+const DogsRenderWithLoader = withLoader(fetchDogs)(PetsRender);
 
 function App() {
   const { theme, colorScheme } = useContext(ThemeContext);
@@ -30,20 +30,20 @@ function App() {
         switch: <ThemeSwitcher />
       </div>
 
-      <h3>CatsContainer</h3>
-      <CatsContainer />
+      <h3>PetsContainer</h3>
+      <PetsContainer />
 
       <h3>WithLoader</h3>
       <WithLoader fetchFunction={fetchDogs}>
         {(fd) => (
           <>
-            asas {/*console.debug(fd)*/} <CatsRender fetchedData={fd} />
+            asas {/*console.debug(fd)*/} <PetsRender fetchedData={fd} />
           </>
         )}
       </WithLoader>
 
-      <h3>CatsRenderWithLoader</h3>
-      <CatsRenderWithLoader />
+      <h3>DogsRenderWithLoader</h3>
+      <DogsRenderWithLoader />
     </div>
   );
 }
