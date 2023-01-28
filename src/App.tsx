@@ -20,11 +20,13 @@ async function fetchCats(): Promise<CatImage[]> {
 const CatsRenderWithLoader = withLoader(fetchCats)(CatsRender);
 
 function App() {
-  const { theme } = useContext(ThemeContext);
+  const { theme, colorScheme } = useContext(ThemeContext);
 
   return (
     <div className="App">
-      <div>Tema atual: {theme}</div>
+      <div>
+        Tema atual: {theme}, Color Scheme: {colorScheme}
+      </div>
       <div>
         switch: <ThemeSwitcher />
       </div>
