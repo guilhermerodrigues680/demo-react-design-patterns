@@ -39,5 +39,5 @@ Em um ambiente que atenda os requisitos, execute na raiz do projeto:
 npm version
 
 # Cria um versão e triga os scripts `version` e `postversion` do package.json.
-npm version patch -m "Lançamento da versão %s"
+npm version patch -m "Lançamento da versão v%s"
 ```
