@@ -5,6 +5,7 @@ import ThemeSwitcher from "./components/provide/ThemeSwitcher";
 import LoadingWrapper from "./components/wrapper/LoadingWrapper";
 import { ThemeContext } from "./context/theme-context";
 import dogsApi from "./services/dogs-api";
+import { VERSION_INFO_TXT } from "./config/version-info";
 
 import styles from "./App.module.css";
 
@@ -20,7 +21,11 @@ function App() {
   return (
     <div className={styles["app"]}>
       <div>
-        Tema atual: {theme} (Tema do dispositivo: {colorScheme})
+        <small>{VERSION_INFO_TXT}</small>
+        <br />
+        <small>
+          Tema atual: {theme} (Tema do dispositivo: {colorScheme})
+        </small>
       </div>
 
       <ThemeSwitcher />
