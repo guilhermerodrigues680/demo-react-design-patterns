@@ -20,11 +20,10 @@ function App() {
   return (
     <div className="App">
       <div>
-        Tema atual: {theme}, Color Scheme: {colorScheme}
+        Tema atual: {theme} (Tema do dispositivo: {colorScheme})
       </div>
-      <div>
-        switch: <ThemeSwitcher />
-      </div>
+
+      <ThemeSwitcher />
 
       <h3>PetsContainer</h3>
       <PetsContainer />

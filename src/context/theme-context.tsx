@@ -24,7 +24,7 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
 
   function setHtmlDataThemeAttribute(theme: Theme) {
     // define o atributo `data-theme` no elemento raiz do documento HTML (tag <html>).
-    document.documentElement.setAttribute("data-theme", theme);
+    document.documentElement.dataset["theme"] = theme;
   }
 
   useEffect(() => {
