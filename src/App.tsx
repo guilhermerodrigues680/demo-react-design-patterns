@@ -6,7 +6,7 @@ import LoadingWrapper from "./components/wrapper/LoadingWrapper";
 import { ThemeContext } from "./context/theme-context";
 import dogsApi from "./services/dogs-api";
 
-import "./App.css";
+import styles from "./App.module.css";
 
 // usar métodos de uma classe como propriedade pode ocorrer erros com o this,
 // assim é necessário fazer com que o this seja referido corretamente.
@@ -18,7 +18,7 @@ function App() {
   const { theme, colorScheme } = useContext(ThemeContext);
 
   return (
-    <div className="App">
+    <div className={styles["app"]}>
       <div>
         Tema atual: {theme} (Tema do dispositivo: {colorScheme})
       </div>

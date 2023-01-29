@@ -13,7 +13,7 @@ export const ThemeContext = createContext<ThemeContextType>(null!);
 
 export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   /** defaultTheme está relacionado com o css padrão para evitar piscar a tela */
-  const defaultTheme: Theme = "dark";
+  const defaultTheme: Theme = "light";
 
   const [theme, setTheme] = useState<Theme>(defaultTheme);
   const [colorScheme, setColorScheme] = useState<Theme>(defaultTheme);
